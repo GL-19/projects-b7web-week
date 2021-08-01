@@ -4,8 +4,8 @@ document.body.addEventListener('keyup', event => {
 
 let button = document.querySelector('button');
 button.addEventListener('click', () => {
-    let composition = document.getElementById('input').value
-    playComposition(composition);
+    let musicalComposition = document.getElementById('input').value
+    playComposition(musicalComposition);
 })
 
 function playSound(soundId) {
@@ -24,9 +24,11 @@ function playSound(soundId) {
 }
 
 function playComposition(composition) {
-    for(let i = 0; i < composition.length; i++) {
+    let delay = 0;
+    for(let compositionItem of composition) {
         setTimeout(() => {
-            playSound(`key${composition[i]}`);
-        }, 300 * i);
+            playSound(`key${compositionItem}`);
+        }, delay);
+        delay += 400;
     }
 }
