@@ -11,9 +11,17 @@ function atualizarHorario() {
     let minutos = horarioAtual.getMinutes();
     let segundos = horarioAtual.getSeconds();
     
-    minutos = minutos < 10 ? '0' + minutos : minutos;
-    segundos = segundos < 10 ? '0' + segundos : segundos;
     relogioDigital.innerHTML = `${corrigirRelogio(horas)}:${corrigirRelogio(minutos)}:${corrigirRelogio(segundos)}`;
+
+    let posicaoHoras = ((360 / 12) * horas) - 90;
+    let posicaoMinutos = ((360 / 60) * minutos) - 90;
+    let posicaoSegundos = ((360 / 60) * segundos) - 90;
+
+
+    ponteiroHoras.style.transform = `rotate(${posicaoHoras}deg)`;
+    ponteiroMinutos.style.transform = `rotate(${posicaoMinutos}deg)`;
+    ponteiroSegundos.style.transform = `rotate(${posicaoSegundos}deg)`;
+
 }
 function corrigirRelogio(unidade) {
     return unidade < 10 ? '0' + unidade : unidade;
