@@ -1,6 +1,8 @@
-let relogioDigital = document.querySelector(".digital");
-let data = new Date();
+const data = new Date();
 let [horas, minutos, segundos] = [data.getHours(), data.getMinutes(), data.getSeconds()];
+
+let relogioDigital = document.querySelector(".digital");
+
 setInterval(atualizarHorario, 1000);
 
 function atualizarHorario() {
@@ -21,9 +23,9 @@ function atualizarHorario() {
 
 function atualizarRelogioDigital() {
     let displayHoras, displayMinutos, displaySegundos;
-    displayHoras = horas;
-    displayMinutos = minutos < 10 ? `0${minutos}` : minutos;
-    displaySegundos = segundos < 10 ? `0${segundos}` : segundos;
+    displayHoras = horas < 10 ? '0' + horas : horas;
+    displayMinutos = minutos < 10 ? '0' + minutos : minutos;
+    displaySegundos = segundos < 10 ? '0' + segundos : segundos;
     
     relogioDigital.innerHTML = `${displayHoras}:${displayMinutos}:${displaySegundos}`;
 }
