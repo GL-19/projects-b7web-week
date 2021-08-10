@@ -9,6 +9,7 @@ formulario.addEventListener('submit', (event) => {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 aviso.innerHTML = null;
                 document.querySelector(".resultado").style.display = "block";
                 AtualizarInformações(data);  
@@ -27,6 +28,8 @@ function AtualizarInformações(dados) {
     document.querySelector(".titulo").innerHTML = dados.name;
     document.querySelector(".tempInfo").innerHTML = dados.main.temp;
     document.querySelector(".ventoInfo").innerHTML = dados.wind.speed; 
+    document.querySelector(".ventoPonto").style.transform = `rotate(${dados.wind.deg - 90}deg)`;
+    document.getElementById('weatherImg').src = `http://openweathermap.org/img/wn/${dados.weather.icon}.png`
 }
 
 
