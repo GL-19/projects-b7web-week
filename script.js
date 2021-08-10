@@ -9,6 +9,7 @@ formulario.addEventListener('submit', (event) => {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 limparInformacoes();
                 document.querySelector(".resultado").style.display = "block";
                 AtualizarInformacoes(data);  
@@ -19,16 +20,25 @@ formulario.addEventListener('submit', (event) => {
             });
        
     } else {
-        aviso.innerHTML = "Digite o nome da cidade";
+        limparInformacoes();
     }  
 })
 
 function AtualizarInformacoes(dados) {
-    document.querySelector(".titulo").innerHTML = `${dados.name}, ${dados.sys.country}`;
-    document.querySelector(".tempInfo").innerHTML = `${dados.main.temp} <sup>ºC</sup>`;
-    document.querySelector(".ventoInfo").innerHTML = `${dados.wind.speed} <span>km/h</span>`; 
-    document.querySelector(".ventoPonto").style.transform = `rotate(${dados.wind.deg - 90}deg)`;
-    document.getElementById('weatherImg').src = `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+    let {
+        name: nomeCidade,
+        sys: {country: nomePais},
+        main: {temp: temperatura, humidity: umidade},
+        wind: {speed: velocidadeVento, deg: anguloVento},
+        weather: [{icon: imgClima}]
+    } = dados;
+    
+    document.querySelector(".titulo").innerHTML = `${nomeCidade}, ${nomePais}`;
+    document.querySelector(".tempInfo").innerHTML = `${temperatura} <sup>ºC</sup>`;
+    document.querySelector(".umidadeInfo").innerHTML = `${umidade}%`;
+    document.querySelector(".ventoInfo").innerHTML = `${velocidadeVento} <span>km/h</span>`; 
+    document.querySelector(".ventoPonto").style.transform = `rotate(${anguloVento - 90}deg)`;
+    document.getElementById('weatherImg').src = `http://openweathermap.org/img/wn/${imgClima}.png`
 }
 
 function limparInformacoes() {
