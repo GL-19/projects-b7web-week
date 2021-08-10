@@ -1,6 +1,5 @@
-let currentColorDiv = document.querySelector('.color.active');
-let currentColor = currentColorDiv.getAttribute('data-color');
-console.log(currentColor, currentColorDiv);
+let currentColor = 'black';
+
 
 document.querySelectorAll('.color').forEach((element) => {
     element.addEventListener('click', changeCurrentColor);
@@ -8,10 +7,9 @@ document.querySelectorAll('.color').forEach((element) => {
 });
 
 function changeCurrentColor(event) {
-    currentColorDiv.className = 'color';
-    currentColorDiv = event.target;
-    currentColorDiv.className = 'color active';
-    currentColor = currentColorDiv.getAttribute('data-color');
-    console.log(currentColor, currentColorDiv);
+    document.querySelector('.color.active').className = 'color';
+    event.target.className = 'color active';
+    currentColor = event.target.getAttribute('data-color');
+    console.log(currentColor,event.target);
 }
 
