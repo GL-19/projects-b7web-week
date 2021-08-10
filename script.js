@@ -1,31 +1,44 @@
-//Initial Data
+//Initial parameters
 const gameBoard = {
     a1: null, a2: null, a3: null,
     b1: null, b2: null, b3: null,
     c1: null, c2: null, c3: null
-}
+};
 
+let isPlaying = false;
 let playerTurn = '';
-let message = '';
-let playing = false;
+let resultMessage = '';
+resetGame();
 
-reset();
-
-//Events
-document.querySelector('.reset').addEventListener('click', reset);
-
+//Game Events
+document.querySelector('.reset').addEventListener('click', resetGame);
+document.querySelectorAll('.item').forEach((element) => {
+    element.addEventListener('click', writeInSquare);
+});
 
 //Functions
-function reset() {
+function resetGame() {
     playerTurn = Math.random() < 0.5 ? 'X' : 'O';
-    message = '';
-    playing = true;
+    resultMessage = '';
+    isPlaying = true;
     for(let square in gameBoard) {
-        gameBoard[square] = '';
+        gameBoard[square] = null;
     }
-    
     renderGameBoard();
-    renderInfo();
+    renderGameInfo();
+}
+
+function writeInSquare(event) {
+    square = event.target.id;
+    if(!gameBoard[square] && isPlaying) {
+        gameBoard[square] = playerTurn;
+        renderGameBoard();
+        checkWinningCondition('X');
+        checkWinningCondition('O');
+        checkDrawCodition();
+        changePlayerTurn();
+        renderGameInfo();
+    }
 }
 
 function renderGameBoard() {
@@ -34,76 +47,63 @@ function renderGameBoard() {
     }
 }
 
-function renderInfo() {
+function renderGameInfo() {
     document.querySelector(".vez").innerHTML = playerTurn;
-    document.querySelector(".resultado").innerHTML = message;
+    document.querySelector(".resultado").innerHTML = resultMessage;
 }
 
 function changePlayerTurn() {
-    if(playerTurn === 'X' && playing) {
+    if(playerTurn === 'X' && isPlaying) {
         playerTurn = 'O';
-    } else if (playerTurn === 'O' && playing) {
+    } else if (playerTurn === 'O' && isPlaying) {
         playerTurn = 'X';
     }
 }
 
-function writeOnSquare(element) {
-    squarePosition = element.id;
-    if(!gameBoard[squarePosition] && playing) {
-        gameBoard[squarePosition] = playerTurn;
-        renderGameBoard();
-        checkWinningCondition('X');
-        checkWinningCondition('O');
-        checkDrawCodition();
-        changePlayerTurn();
-        renderInfo();
+function checkWinningCondition(playerSymbol) {
+    if(gameBoard.a1 === playerSymbol && gameBoard.a2 === playerSymbol && gameBoard.a3 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-}
-
-function checkWinningCondition(player) {
-    if(gameBoard.a1 === player && gameBoard.a2 === player && gameBoard.a3 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.b1 === playerSymbol && gameBoard.b2 === playerSymbol && gameBoard.b3 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-    if(gameBoard.b1 === player && gameBoard.b2 === player && gameBoard.b3 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.c1 === playerSymbol && gameBoard.c2 === playerSymbol && gameBoard.c3 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-    if(gameBoard.c1 === player && gameBoard.c2 === player && gameBoard.c3 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.a1 === playerSymbol && gameBoard.b1 === playerSymbol && gameBoard.c1 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-    if(gameBoard.a1 === player && gameBoard.b1 === player && gameBoard.c1 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.a2 === playerSymbol && gameBoard.b2 ===playerSymbol && gameBoard.c2 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-    if(gameBoard.a2 === player && gameBoard.b2 ===player && gameBoard.c2 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.a3 === playerSymbol && gameBoard.b3 === playerSymbol && gameBoard.c3 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-    if(gameBoard.a3 === player && gameBoard.b3 === player && gameBoard.c3 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.a1 === playerSymbol && gameBoard.b2 === playerSymbol && gameBoard.c3 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
-    if(gameBoard.a1 === player && gameBoard.b2 === player && gameBoard.c3 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
-    }
-    if(gameBoard.a3 === player && gameBoard.b2 === player && gameBoard.c1 === player) {
-        playing = false;
-        message = `Vitória de ${player}`;
+    if(gameBoard.a3 === playerSymbol && gameBoard.b2 === playerSymbol && gameBoard.c1 === playerSymbol) {
+        isPlaying = false;
+        resultMessage = `Vitória de ${playerSymbol}`;
     }
 }
 
 function checkDrawCodition() {
     let thereAreNullSquares = false
     for(let square in gameBoard) {
-        if(gameBoard[square] === '') {
+        if(!gameBoard[square]) {
             thereAreNullSquares = true;
         } 
     }
-    if(!thereAreNullSquares && playing) {
-        playing = false;
-        message = 'Empate';
+    if(!thereAreNullSquares && isPlaying) {
+        isPlaying = false;
+        resultMessage = 'Empate';
     }
 }
