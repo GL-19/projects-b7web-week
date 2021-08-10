@@ -25,11 +25,11 @@ formulario.addEventListener('submit', (event) => {
 })
 
 function AtualizarInformações(dados) {
-    document.querySelector(".titulo").innerHTML = dados.name;
-    document.querySelector(".tempInfo").innerHTML = dados.main.temp;
-    document.querySelector(".ventoInfo").innerHTML = dados.wind.speed; 
+    document.querySelector(".titulo").innerHTML = `${dados.name}, ${dados.sys.country}`;
+    document.querySelector(".tempInfo").innerHTML = `${dados.main.temp} <sup>ºC</sup>`;
+    document.querySelector(".ventoInfo").innerHTML = `${dados.wind.speed} <span>km/h</span>`; 
     document.querySelector(".ventoPonto").style.transform = `rotate(${dados.wind.deg - 90}deg)`;
-    document.getElementById('weatherImg').src = `http://openweathermap.org/img/wn/${dados.weather.icon}.png`
+    document.getElementById('weatherImg').src = `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
 }
 
 
