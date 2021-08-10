@@ -54,6 +54,7 @@ function writeOnSquare(element) {
         renderGameBoard();
         checkWinningCondition('X');
         checkWinningCondition('O');
+        checkDrawCodition();
         changePlayerTurn();
         renderInfo();
     }
@@ -91,5 +92,18 @@ function checkWinningCondition(player) {
     if(gameBoard.a3 === player && gameBoard.b2 === player && gameBoard.c1 === player) {
         playing = false;
         message = `Vitória de ${player}`;
+    }
+}
+
+function checkDrawCodition() {
+    let thereAreNullSquares = false
+    for(let square in gameBoard) {
+        if(gameBoard[square] === '') {
+            thereAreNullSquares = true;
+        } 
+    }
+    if(!thereAreNullSquares && playing) {
+        playing = false;
+        message = 'Empate';
     }
 }
