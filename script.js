@@ -4,16 +4,10 @@ let rightAnswers = 0;
 showQuestion();
 
 document.querySelectorAll('.options').forEach((element) => {
-    element.addEventListener('click', (event) => {
-        optionNumber = event.target.innerText[0] - 1;
-        let answer = questions[currentQuestion].answer;
-        if(optionNumber === answer) {
-            rightAnswers++;
-        }
-        currentQuestion++;
-        showQuestion();
-    });
+    element.addEventListener('click', optionChosen);
 });
+
+document.querySelector('.scoreArea button').addEventListener('click', restartQuiz);
 
 
 function showQuestion() {
@@ -37,3 +31,18 @@ function showQuestion() {
     }
 }
 
+function optionChosen(event) {
+    let optionNumber = event.target.innerText[0] - 1;
+    let answer = questions[currentQuestion].answer;
+    if(optionNumber === answer) {
+        rightAnswers++;
+    }
+    currentQuestion++;
+    showQuestion();
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    rightAnswers = 0;
+    showQuestion();
+}
