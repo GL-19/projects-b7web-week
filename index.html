@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da velha</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Jogo da velha</h1>
+
+    <div class="area">
+        <div id="a1" class="item b r"></div>
+        <div id="a2" class="item b r"></div>
+        <div id="a3" class="item b"></div>
+
+        <div id="b1" class="item b r"></div>
+        <div id="b2" class="item b r"></div>
+        <div id="b3" class="item b"></div>
+
+        <div id="c1" class="item r"></div>
+        <div id="c2" class="item r"></div>
+        <div id="c3" class="item"></div>
+    </div>
+
+    <div class="info">
+        <div class="infoitem">
+            <div class="infotitulo">Está na vez de:</div>
+            <div class="infocorpo vez">--</div>
+        </div>
+        <div class="infoitem">
+            <div class="infotitulo">Vencedor:</div>
+            <div class="infocorpo resultado">--</div>
+        </div>
+    </div>
+
+    <button class="reset">Resetar</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
